@@ -6,7 +6,7 @@ import { useState } from "react";
 import { InstallAppButton } from "@/components/install-app-button";
 
 const links = [
-  { href: "/", label: "Names" },
+  { href: "/", label: "Projects" },
   { href: "/credentials", label: "Admin Vault" },
 ];
 
