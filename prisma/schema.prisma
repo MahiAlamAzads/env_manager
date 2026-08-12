@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model NameEntry {
+  id        BigInt   @id @default(autoincrement()) @db.BigInt
+  nameOne   String   @default("") @map("name_one") @db.VarChar(200)
+  nameTwo   String   @default("") @map("name_two") @db.VarChar(200)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@index([createdAt(sort: Desc), id(sort: Desc)], map: "name_entries_created_at_idx")
+  @@map("name_entries")
+}
+
+model ProjectSecret {
+  id               BigInt   @id @default(autoincrement()) @db.BigInt
+  projectName      String   @map("project_name") @db.VarChar(200)
+  githubUrl        String   @default("") @map("github_url") @db.VarChar(500)
+  encryptedPayload String   @map("encrypted_payload") @db.Text
+  iv               String   @db.VarChar(64)
+  authTag          String   @map("auth_tag") @db.VarChar(64)
+  createdAt        DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt        DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@index([projectName], map: "project_secrets_project_name_idx")
+  @@index([createdAt(sort: Desc), id(sort: Desc)], map: "project_secrets_created_at_idx")
+  @@map("project_secrets")
+}
+
+model AdminCredential {
+  id               BigInt   @id @default(autoincrement()) @db.BigInt
+  softwareName     String   @map("software_name") @db.VarChar(200)
+  adminUrl         String   @default("") @map("admin_url") @db.VarChar(500)
+  encryptedPayload String   @map("encrypted_payload") @db.Text
+  iv               String   @db.VarChar(64)
+  authTag          String   @map("auth_tag") @db.VarChar(64)
+  createdAt        DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt        DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@index([softwareName], map: "admin_credentials_software_name_idx")
+  @@index([createdAt(sort: Desc), id(sort: Desc)], map: "admin_credentials_created_at_idx")
+  @@map("admin_credentials")
+}
