@@ -7,7 +7,6 @@ import { InstallAppButton } from "@/components/install-app-button";
 
 const links = [
   { href: "/", label: "Names" },
-  { href: "/projects", label: "Projects" },
   { href: "/credentials", label: "Admin Vault" },
 ];
 
